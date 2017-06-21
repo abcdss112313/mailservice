@@ -1,8 +1,10 @@
 package com.email.service.impl;
 
+import com.email.domain.Emails;
 import com.email.service.MailService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -24,7 +26,6 @@ import java.util.Properties;
  */
 @Service
 public class MailServiceImpl implements MailService {
-
 
     @Value("${spring.mail.host}")
     private String host;
@@ -54,6 +55,19 @@ public class MailServiceImpl implements MailService {
         return javaMailSender;
     }
 
+    @Override
+    public Object HttpSendMail(Emails mail) {
+        try {
+            sendHtmlMail(mail.getFrom(), mail.getPassword(),
+                    mail.getTo(), mail.getSubject(), mail.getContent());
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        JSONObject json = new JSONObject();
+        json.put("message","true");
+        return  json;
+    }
+
 
     @Override
     public void sendHtmlMail(String from, String password, String to, String subject, String content) throws MessagingException {
@@ -74,8 +88,6 @@ public class MailServiceImpl implements MailService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         getMailSender(from, password).send(message);
-
     }
 }
