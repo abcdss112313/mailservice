@@ -9,6 +9,24 @@ public class Emails {
     private String password;
     private String subject;
     private String content;
+    private String fromNikeName;
+    private Integer hours;
+
+    public String getFromNikeName() {
+        return fromNikeName;
+    }
+
+    public void setFromNikeName(String fromNikeName) {
+        this.fromNikeName = fromNikeName;
+    }
+
+    public Integer getHours() {
+        return hours;
+    }
+
+    public void setHours(Integer hours) {
+        this.hours = hours;
+    }
 
     public String getFrom() {
         return from;

@@ -6,18 +6,20 @@
 </head>
 <body>
 <table style="border: 1px">
-    <tr>
-        <td>
-            ${id}
-        </td>
-        <td>${id}</td>
-    </tr>
-    <tr>
-        <td>
-            ${id}
-        </td>
-        <td>${id}</td>
-    </tr>
+    <table border="1">
+        <tr>
+          <th>发起人</th>
+            <th>邮件类型</th>
+            <th>时长</th>
+            <th>原因说明</th>
+        </tr>
+        <tr>
+          <td>${userFrom}</td>
+            <td>${subject}</td>
+            <td>${hours}</td>
+            <td>content</td>
+        </tr>
+    </table>
 </table>
 </body>
 </html>

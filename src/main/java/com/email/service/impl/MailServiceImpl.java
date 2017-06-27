@@ -55,31 +55,23 @@ public class MailServiceImpl implements MailService {
         return javaMailSender;
     }
 
-    @Override
-    public Object HttpSendMail(Emails mail) {
-        try {
-            sendHtmlMail(mail.getFrom(), mail.getPassword(),
-                    mail.getTo(), mail.getSubject(), mail.getContent());
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-        JSONObject json = new JSONObject();
-        json.put("message","true");
-        return  json;
-    }
+
 
 
     @Override
-    public void sendHtmlMail(String from, String password, String to, String subject, String content) throws MessagingException {
-        MimeMessage message = getMailSender(from, password).createMimeMessage();
+    public void sendHtmlMail(Emails emails) throws MessagingException {
+        MimeMessage message = getMailSender(emails.getFrom(), emails.getPassword()).createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-        helper.setFrom(from);
-        String receiver = to;
+        helper.setFrom(emails.getFrom());
+        String receiver = emails.getTo();
         String receivers[] = receiver.split(";");
-        helper.setTo(to);
-        helper.setSubject(subject);
+        helper.setTo(receivers);
+        helper.setSubject(emails.getSubject());
         Map model = new HashMap<>();
-        model.put("id", content);
+        model.put("userFrom", emails.getFromNikeName());
+        model.put("subject",emails.getSubject());
+        model.put("hours",emails.getHours());
+        model.put("content",emails.getContent());
         try {
             Template template = freeMarkerConfigurer.getConfiguration().
                     getTemplate("emailTemplate.html");
@@ -88,6 +80,6 @@ public class MailServiceImpl implements MailService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        getMailSender(from, password).send(message);
+        getMailSender(emails.getFrom(), emails.getPassword()).send(message);
     }
 }

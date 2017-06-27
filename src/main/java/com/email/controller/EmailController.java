@@ -19,16 +19,22 @@ public class EmailController {
 
     @RequestMapping("/template")
     @ResponseBody
-    public Object HttpSendMail(@RequestBody Emails mail) {
-        JSONObject json = new JSONObject();
-        try {
-            mailService.sendHtmlMail(mail.getFrom(), mail.getPassword(),
-                    mail.getTo(), mail.getSubject(), mail.getContent());
+    public String HttpSendMail(@RequestBody JSONObject parm) {
+      try {
+            Emails emails = new Emails();
+            emails.setFrom(parm.getAsString("from"));
+            emails.setPassword(parm.getAsString("password"));
+            emails.setTo(parm.getAsString("to"));
+            emails.setContent(parm.getAsString("content"));
+            emails.setSubject(parm.getAsString("subject"));
+            emails.setHours(parm.getAsNumber("hours").intValue());
+            emails.setFromNikeName(parm.getAsString("nickname"));
+            mailService.sendHtmlMail(emails);
         } catch (MessagingException e) {
             e.printStackTrace();
-            return json.put("message", "fail");
+            return "error";
         }
-        json.put("message", "success");
-        return json;
+        return "success";
     }
+
 }

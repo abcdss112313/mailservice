@@ -1,5 +1,6 @@
 package com.email;
 
+import com.email.domain.Emails;
 import com.email.service.MailService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 
 
 @RunWith(SpringRunner.class)
@@ -30,8 +30,15 @@ public class MailserviceApplicationTests {
 		//Context context = new Context();
 		//context.setVariable("id", "006");
 		//String emailContent = templateEngine.process("emailTemplate", context);
-		mailService.sendHtmlMail("forevermother@126.com","Liyangzhou115",
-				"forevermother@126.com","testtest","helloworld"
-				);
+		Emails emails = new Emails();
+		emails.setFrom("forevermother@126.com");
+		emails.setPassword("Liyangzhou115");
+		emails.setTo("182480610@qq.com");
+		emails.setContent("不舒服");
+		emails.setSubject("请假");
+		emails.setFromNikeName("小强");
+		emails.setHours(7);
+		
+		mailService.sendHtmlMail(emails);
 	}
 }

@@ -12,8 +12,6 @@ public interface MailService {
 
     public JavaMailSenderImpl getMailSender(String account,String password);
 
-    public Object HttpSendMail(Emails mail);
 
-
-    public void sendHtmlMail(String from ,String password,String to, String subject, String content) throws MessagingException;
+    public void sendHtmlMail(Emails emails) throws MessagingException;
 }
