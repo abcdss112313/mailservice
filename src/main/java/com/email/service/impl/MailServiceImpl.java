@@ -93,7 +93,7 @@ public class MailServiceImpl implements MailService {
         Map model = new HashMap<>();
         model.put("userFrom", emails.getFromNikeName());
         model.put("subject",emails.getSubject());
-        model.put("hours",emails.getHours());
+      //model.put("hours",emails.getHours());
         model.put("nickName",emails.getFromNikeName());
         model.put("askForLeave",emails.getAskforleave());
         model.put("overTimeHour",emails.getOvertimehour());

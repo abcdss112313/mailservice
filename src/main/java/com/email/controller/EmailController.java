@@ -41,6 +41,7 @@ public class EmailController {
     @ResponseBody
     public String HttpSendMailforQuery(@RequestBody JSONObject parm) {
         try {
+            //首先是用户发送给系统
             Emails emails = new Emails();
             emails.setFrom(parm.getAsString("from"));
             emails.setPassword(parm.getAsString("password"));
@@ -48,10 +49,12 @@ public class EmailController {
             emails.setContent(parm.getAsString("content"));
             emails.setSubject(parm.getAsString("subject"));
             emails.setOvertimehour(parm.getAsNumber("overtimehour").intValue());
-            emails.setOvertimehour(parm.getAsNumber("askforleave").intValue());
+            emails.setAskforleave(parm.getAsNumber("askforleave").intValue());
             emails.setFromNikeName(parm.getAsString("nickname"));
             emails.setRestHour(parm.getAsNumber("restHours").intValue());
-            mailService.sendHtmlMail(emails);
+            mailService.sendHtmlMailForQuery(emails);
+            //系统收到邮件转发给用户
+
         } catch (MessagingException e) {
             e.printStackTrace();
             return "error";
