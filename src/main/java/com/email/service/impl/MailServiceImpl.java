@@ -82,4 +82,30 @@ public class MailServiceImpl implements MailService {
         }
         getMailSender(emails.getFrom(), emails.getPassword()).send(message);
     }
+
+    @Override
+    public void sendHtmlMailForQuery(Emails emails) throws MessagingException {
+        MimeMessage message = getMailSender(emails.getFrom(), emails.getPassword()).createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+        helper.setFrom(emails.getFrom());
+        helper.setTo(emails.getTo());
+        helper.setSubject(emails.getSubject());
+        Map model = new HashMap<>();
+        model.put("userFrom", emails.getFromNikeName());
+        model.put("subject",emails.getSubject());
+        model.put("hours",emails.getHours());
+        model.put("nickName",emails.getFromNikeName());
+        model.put("askForLeave",emails.getAskforleave());
+        model.put("overTimeHour",emails.getOvertimehour());
+        model.put("restHours",emails.getRestHour());
+        try {
+            Template template = freeMarkerConfigurer.getConfiguration().
+                    getTemplate("emailTemplateforquery.html");
+            String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+            helper.setText(html, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        getMailSender(emails.getFrom(), emails.getPassword()).send(message);
+    }
 }

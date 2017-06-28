@@ -37,4 +37,26 @@ public class EmailController {
         return "success";
     }
 
+    @RequestMapping("/query")
+    @ResponseBody
+    public String HttpSendMailforQuery(@RequestBody JSONObject parm) {
+        try {
+            Emails emails = new Emails();
+            emails.setFrom(parm.getAsString("from"));
+            emails.setPassword(parm.getAsString("password"));
+            emails.setTo(parm.getAsString("to"));
+            emails.setContent(parm.getAsString("content"));
+            emails.setSubject(parm.getAsString("subject"));
+            emails.setOvertimehour(parm.getAsNumber("overtimehour").intValue());
+            emails.setOvertimehour(parm.getAsNumber("askforleave").intValue());
+            emails.setFromNikeName(parm.getAsString("nickname"));
+            emails.setRestHour(parm.getAsNumber("restHours").intValue());
+            mailService.sendHtmlMail(emails);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return "error";
+        }
+        return "success";
+    }
+
 }

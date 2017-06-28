@@ -11,6 +11,33 @@ public class Emails {
     private String content;
     private String fromNikeName;
     private Integer hours;
+    private Integer overtimehour;
+    private Integer askforleave;
+    private Integer restHour;
+
+
+    public Integer getRestHour() {
+        return restHour;
+    }
+    public void setRestHour(Integer restHour) {
+        this.restHour = restHour;
+    }
+
+    public Integer getOvertimehour() {
+        return overtimehour;
+    }
+
+    public void setOvertimehour(Integer overtimehour) {
+        this.overtimehour = overtimehour;
+    }
+
+    public Integer getAskforleave() {
+        return askforleave;
+    }
+
+    public void setAskforleave(Integer askforleave) {
+        this.askforleave = askforleave;
+    }
 
     public String getFromNikeName() {
         return fromNikeName;
