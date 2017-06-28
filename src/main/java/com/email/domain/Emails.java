@@ -4,12 +4,32 @@ package com.email.domain;
  * Created by windsorl on 2017/6/21.
  */
 public class Emails {
+    /**
+     *发件人
+     **/
     private String from;
+    /**
+     *收件人
+     **/
     private String to;
+    /**
+     * password
+     */
     private String password;
+    /**
+     * 主题
+     */
     private String subject;
+    /**
+     * 邮箱内容
+     */
     private String content;
+    /**
+     * 发送人昵称
+     */
     private String fromNikeName;
+
+
     private Integer hours;
     private Integer overtimehour;
     private Integer askforleave;
