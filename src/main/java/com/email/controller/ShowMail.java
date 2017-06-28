@@ -48,7 +48,7 @@ public class ShowMail {
         Message message[] = folder.getMessages();
         System.out.println("邮件数量:　" + message.length);
         ShowMail re = null;
-
+        ParserMail parserMail = new ParserMail();
         for (int i = 0; i < message.length; i++) {
             re = new ShowMail((MimeMessage) message[i]);
             if ("加班审批".equals(re.getSubject())) {
@@ -60,10 +60,13 @@ public class ShowMail {
                         .println("邮件　" + i + "　收信人地址:　" + re.getMailAddress("to"));
                 re.setDateFormat("yy年MM月dd日　HH:mm");
                 System.out.println("邮件　" + i + "　发送时间:　" + re.getSentDate());
-                System.out.println("邮件　" + i + "　正文内容:　\r\n" + re.getBodyText());
+                parserMail.getAllMultipart(message[i]);
+                //System.out.println("邮件　" + i + "　正文内容:　\r\n" + parserMail.getAllMultipart(message[i]));
             }
         }
     }
+
+
 
     public void setMimeMessage(MimeMessage mimeMessage) {
         this.mimeMessage = mimeMessage;
@@ -178,7 +181,7 @@ public class ShowMail {
      * 　　*　主要是根据MimeType类型的不同执行不同的操作，一步一步的解析
      */
 
-    public void getMailContent(Part part) throws Exception {
+    public  void getMailContent(Part part) throws Exception {
 
         String contentType = part.getContentType();
         // 获得邮件的MimeType类型

@@ -1,10 +1,10 @@
 package com.email.service.impl;
 
+import com.email.controller.ParserMail;
+import com.email.controller.ShowMail;
 import com.email.domain.Emails;
 import com.email.service.MailService;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -14,12 +14,10 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.thymeleaf.TemplateEngine;
 
-import javax.mail.MessagingException;
+import javax.mail.*;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created by windsorl on 2017/6/21.
@@ -108,4 +106,11 @@ public class MailServiceImpl implements MailService {
         }
         getMailSender(emails.getFrom(), emails.getPassword()).send(message);
     }
+
+    @Override
+    public List<Emails> getMailBoxList(Emails emails) throws MessagingException {
+        List<Emails> listEmails = new ArrayList<Emails>();
+        return listEmails;
+    }
+
 }
