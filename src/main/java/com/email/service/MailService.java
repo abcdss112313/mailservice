@@ -18,10 +18,4 @@ public interface MailService {
 
     public void sendHtmlMailForQuery(Emails emails) throws MessagingException;
 
-    /**
-     * 获取用户邮箱信息
-     * @param emails
-     * @return
-     */
-    List<Emails> getMailBoxList(Emails emails) throws MessagingException;
 }

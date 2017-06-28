@@ -1,7 +1,5 @@
 package com.email.service.impl;
 
-import com.email.controller.ParserMail;
-import com.email.controller.ShowMail;
 import com.email.domain.Emails;
 import com.email.service.MailService;
 import freemarker.template.Template;
@@ -16,7 +14,6 @@ import org.thymeleaf.TemplateEngine;
 
 import javax.mail.*;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -27,15 +24,17 @@ public class MailServiceImpl implements MailService {
 
     @Value("${spring.mail.host}")
     private String host;
-
     @Value("${spring.mail.properties.mail.smtp.auth}")
     private String isAuth;
-
     @Value("${mail.smtp.timeout}")
     private String outTime;
+    @Value("${system.email.acc}")
+    private String sysEmailAcc;
+    @Value("${system.email.pwd}")
+    private String sysEmailPwd;
 
     @Autowired
-    private FreeMarkerConfigurer freeMarkerConfigurer;  //自动注入
+    private FreeMarkerConfigurer freeMarkerConfigurer;
 
     @Autowired
     private TemplateEngine templateEngine;
@@ -107,10 +106,5 @@ public class MailServiceImpl implements MailService {
         getMailSender(emails.getFrom(), emails.getPassword()).send(message);
     }
 
-    @Override
-    public List<Emails> getMailBoxList(Emails emails) throws MessagingException {
-        List<Emails> listEmails = new ArrayList<Emails>();
-        return listEmails;
-    }
 
 }
