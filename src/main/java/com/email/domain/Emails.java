@@ -28,13 +28,21 @@ public class Emails {
      * 发送人昵称
      */
     private String fromNikeName;
-
     private String mailType;
-
     private Integer hours;
     private Integer overtimehour;
     private Integer askforleave;
     private Integer restHour;
+    private String approveStatus;
+
+
+    public String getApproveStatus() {
+        return approveStatus;
+    }
+
+    public void setApproveStatus(String approveStatus) {
+        this.approveStatus = approveStatus;
+    }
 
     public String getMailType() {
         return mailType;

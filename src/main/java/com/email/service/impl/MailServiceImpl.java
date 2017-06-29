@@ -69,6 +69,7 @@ public class MailServiceImpl implements MailService {
         model.put("subject",emails.getSubject());
         model.put("hours",emails.getHours());
         model.put("content",emails.getContent());
+        model.put("approveStatus",emails.getApproveStatus());
         try {
             Template template = null;
             if(!"query".equals(emails.getMailType())){

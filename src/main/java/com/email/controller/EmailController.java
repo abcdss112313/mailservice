@@ -35,12 +35,13 @@ public class EmailController {
             emails.setPassword(parm.getAsString("password"));
             emails.setTo(parm.getAsString("to"));
             emails.setContent(parm.getAsString("content"));
-            emails.setSubject(parm.getAsString("subject"));
-           // emails.setOvertimehour(parm.getAsNumber("overtimehour").intValue());
-          //  emails.setAskforleave(parm.getAsNumber("askforleave").intValue());
+            emails.setSubject(parm.getAsString("subject")) ;
+          //emails.setOvertimehour(parm.getAsNumber("overtimehour").intValue());
+          //emails.setAskforleave(parm.getAsNumber("askforleave").intValue());
             emails.setFromNikeName(parm.getAsString("nickname"));
             emails.setHours(parm.getAsNumber("hours").intValue());
-          //  emails.setRestHour(parm.getAsNumber("restHours").intValue());
+            emails.setApproveStatus(parm.getAsString("approveStatus"));
+          //emails.setRestHour(parm.getAsNumber("restHours").intValue());
 
             mailService.sendHtmlMail(emails);
             //系统收到邮件转发给用户
