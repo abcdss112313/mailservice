@@ -70,8 +70,14 @@ public class MailServiceImpl implements MailService {
         model.put("hours",emails.getHours());
         model.put("content",emails.getContent());
         try {
-            Template template = freeMarkerConfigurer.getConfiguration().
-                    getTemplate("emailTemplate.html");
+            Template template = null;
+            if(!"query".equals(emails.getMailType())){
+                 template = freeMarkerConfigurer.getConfiguration().
+                        getTemplate("emailTemplate.html");
+            }else{
+                 template = freeMarkerConfigurer.getConfiguration().
+                        getTemplate("emailTemplatequery.html");
+            }
             String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
             helper.setText(html, true);
         } catch (Exception e) {
@@ -83,9 +89,13 @@ public class MailServiceImpl implements MailService {
     @Override
     public void sendHtmlMailForQuery(Emails emails) throws MessagingException {
         MimeMessage message = getMailSender(emails.getFrom(), emails.getPassword()).createMimeMessage();
+        System.out.println(emails.getFrom());
+        System.out.println(emails.getPassword());
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
         helper.setFrom(emails.getFrom());
-        helper.setTo(emails.getTo());
+        String receiver = emails.getTo();
+        String receivers[] = receiver.split(";");
+        helper.setTo(receivers);
         helper.setSubject(emails.getSubject());
         Map model = new HashMap<>();
         model.put("userFrom", emails.getFromNikeName());
@@ -104,6 +114,7 @@ public class MailServiceImpl implements MailService {
             e.printStackTrace();
         }
         getMailSender(emails.getFrom(), emails.getPassword()).send(message);
+   //     getMailSender("forevermother@126.com", "Liyangzhou115").send(message);
     }
 
 

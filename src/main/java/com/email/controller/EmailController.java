@@ -23,7 +23,7 @@ public class EmailController {
     private MailService mailService;
     @Value("${system.email.acc}")
     private String sysEmailAcc;
-    @Value("${system.email.acc}")
+    @Value("${system.email.pwd}")
     private String sysEmailPwd;
 
     @RequestMapping("/template")
@@ -69,19 +69,33 @@ public class EmailController {
     @ResponseBody
     public String HttpSendMailforQuery(@RequestBody JSONObject parm) {
         try {
-            //首先是用户发送给系统
+            //首先是用户发送给系统邮件
             Emails emails = new Emails();
             emails.setFrom(parm.getAsString("from"));
             emails.setPassword(parm.getAsString("password"));
-            emails.setTo(parm.getAsString("to"));
+            emails.setTo(sysEmailAcc);
             emails.setContent(parm.getAsString("content"));
             emails.setSubject(parm.getAsString("subject"));
             emails.setOvertimehour(parm.getAsNumber("overtimehour").intValue());
             emails.setAskforleave(parm.getAsNumber("askforleave").intValue());
             emails.setFromNikeName(parm.getAsString("nickname"));
             emails.setRestHour(parm.getAsNumber("restHours").intValue());
-            mailService.sendHtmlMailForQuery(emails);
+            emails.setMailType("query");
+            mailService.sendHtmlMail(emails);
 
+            //系统发送给用户回复
+            Emails systememails = new Emails();
+            systememails.setFrom(sysEmailAcc);
+            systememails.setPassword(sysEmailPwd);
+            systememails.setTo(emails.getFrom());
+            systememails.setContent(emails.getContent());
+            systememails.setFromNikeName("系统邮件");
+            systememails.setAskforleave(parm.getAsNumber("askforleave").intValue());
+            systememails.setOvertimehour(parm.getAsNumber("overtimehour").intValue());
+            systememails.setRestHour(parm.getAsNumber("restHours").intValue());
+            systememails.setSubject("系统查询回复");
+            systememails.setHours(emails.getHours());
+            mailService.sendHtmlMailForQuery(systememails);
         } catch (MessagingException e) {
             e.printStackTrace();
             return "error";

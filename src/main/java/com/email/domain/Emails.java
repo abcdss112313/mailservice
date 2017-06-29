@@ -29,12 +29,20 @@ public class Emails {
      */
     private String fromNikeName;
 
+    private String mailType;
 
     private Integer hours;
     private Integer overtimehour;
     private Integer askforleave;
     private Integer restHour;
 
+    public String getMailType() {
+        return mailType;
+    }
+
+    public void setMailType(String mailType) {
+        this.mailType = mailType;
+    }
 
     public Integer getRestHour() {
         return restHour;

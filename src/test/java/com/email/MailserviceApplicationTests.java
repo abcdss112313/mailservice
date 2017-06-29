@@ -48,7 +48,7 @@ public class MailserviceApplicationTests {
 		Emails emails = new Emails();
 		emails.setFrom("forevermother@126.com");
 		emails.setPassword("Liyangzhou115");
-		emails.setTo("182480610@qq.com");
+		emails.setTo("182480610@qq.com"+";"+"liyangzhou115@126.com");
 		emails.setContent("查询请求");
 		emails.setSubject("系统查询");
 		emails.setFromNikeName("小强");
