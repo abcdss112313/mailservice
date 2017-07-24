@@ -56,6 +56,7 @@ public class MailserviceApplicationTests {
 		emails.setOvertimehour(8);
 		emails.setRestHour(1);
 	System.out.println("this is just a test,hello world");
+	System.out.println("this is the second test ,hello world");
 		mailService.sendHtmlMailForQuery(emails);
 	}
 }
